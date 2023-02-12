@@ -16,9 +16,22 @@ fun AppNavegacion() {
         composable(route = AppPantallas.PantallaPrincipal.route){
             PantallaPrincipal(navController)
         }
-        composable(route = AppPantallas.Pantallalogin.route){
+        composable(route = AppPantallas.PantallaLogin.route){
             PantallaLogin(navController)
         }
+        composable(route = AppPantallas.PantallaDocente.route + "/{id_usuario}",
+            arguments = listOf(navArgument(name = "id_usuario"){
+                type = NavType.StringType
+            })){
+            PantallaDocente(navController, it.arguments?.getString("id_usuario"))
+        }
+        composable(route = AppPantallas.PantallaAlumno.route + "/{id_usuario}",
+            arguments = listOf(navArgument(name = "id_usuario"){
+                type = NavType.StringType
+            })){
+            PantallaAlumno(navController, it.arguments?.getString("id_usuario"))
+        }
+        ///////////////////////////////
         composable(route = AppPantallas.PrimeraPantalla.route){
             PrimeraPantalla(navController)
         }

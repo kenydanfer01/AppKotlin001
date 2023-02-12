@@ -63,15 +63,16 @@ fun Login(navController: NavController) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        var usuario by remember { mutableStateOf("") }
+        var dni by remember { mutableStateOf("") }
         var clave by remember { mutableStateOf("") }
         var mensaje by remember { mutableStateOf("") }
-        var id :String
+        var id_rol :String
+        var id: String
         var showPopup by remember { mutableStateOf(false) }
 
         OutlinedTextField(
-            value = usuario,
-            onValueChange = { usuario = it },
+            value = dni,
+            onValueChange = { dni = it },
             label = {
                 Text("Usuario")
             },
@@ -95,13 +96,17 @@ fun Login(navController: NavController) {
         Button(
             onClick = {
                 ValidarLogin(
-                    usuario = usuario,
+                    dni = dni,
                     clave = clave,
                     respuesta = {
                         if (it!=null) {
                             mensaje = ""
+                            id_rol = it.id_rol
                             id = it.id
-                            navController.navigate(route = AppPantallas.PrimeraPantalla.route)
+                            when(id_rol){
+                                "2" -> navController.navigate(route = AppPantallas.PantallaDocente.route + "/$id")
+                                "3" -> navController.navigate(route = AppPantallas.PantallaAlumno.route + "/$id")
+                            }
                         } else {
                             mensaje = ""
                             showPopup = true
@@ -136,11 +141,11 @@ fun Login(navController: NavController) {
 }
 
 
-data class UsuarioID(val id: String)
+data class UsuarioID(val id: String, val id_rol: String)
 
-fun ValidarLogin(usuario: String, clave: String, respuesta: (UsuarioID?) -> Unit, contexto: Context){
+fun ValidarLogin(dni: String, clave: String, respuesta: (UsuarioID?) -> Unit, contexto: Context){
     val requestQueue = Volley.newRequestQueue(contexto)
-    val url = "http://192.168.1.2/SanMiguel/login.php?usuario='$usuario'&clave='$clave'"
+    val url = "http://192.168.1.6/SanMiguel/login.php?dni='$dni'&clave='$clave'"
     val requerimiento = JsonArrayRequest(
         Request.Method.GET,
         url,
@@ -150,7 +155,8 @@ fun ValidarLogin(usuario: String, clave: String, respuesta: (UsuarioID?) -> Unit
                 try {
                     val objeto = JSONObject(response[0].toString())
                     val usuarioId = UsuarioID(
-                        objeto.getString("id")
+                        objeto.getString("id"),
+                        objeto.getString("id_rol")
                     )
                     respuesta(usuarioId)
                 } catch (_: JSONException) {

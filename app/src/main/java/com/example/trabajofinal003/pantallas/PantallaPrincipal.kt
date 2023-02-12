@@ -35,7 +35,7 @@ fun BodyPrincipal(navController: NavController){
             ImagenPrincipal(R.drawable.principal)
             Espacio(16)
             TextoPrincipal("SAN MIGUEL DE PIURA")
-            ImagenSecundaria(id = R.drawable.logo_sm)
+            TextoSecundario(id = R.drawable.logo_sm)
             SimpleButton(navController)
             SimpleButton2()
         }
@@ -70,7 +70,7 @@ fun Espacio(numero: Int){
 }
 
 @Composable
-fun ImagenSecundaria(id: Int){
+fun TextoSecundario(id: Int){
     Image(painter = painterResource(id = id),
         contentDescription = "Logo Colegio" ,
         modifier = Modifier
@@ -83,7 +83,7 @@ fun ImagenSecundaria(id: Int){
 fun SimpleButton(navController: NavController) {
     Button(onClick = {
         //your onclick code here
-        navController.navigate(route = AppPantallas.Pantallalogin.route)
+        navController.navigate(route = AppPantallas.PantallaLogin.route)
     },
     modifier = Modifier
         .fillMaxSize()
