@@ -37,6 +37,9 @@ fun AppNavegacion() {
             })){
             PantallaCursoInfo(navController, it.arguments?.getString("id_curso"))
         }
+        composable(route = AppPantallas.PantallaInfoColegio.route){
+            PantallaInfoColegio(navController)
+        }
         ///////////////////////////////
         composable(route = AppPantallas.PrimeraPantalla.route){
             PrimeraPantalla(navController)

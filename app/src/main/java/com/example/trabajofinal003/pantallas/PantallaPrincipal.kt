@@ -37,7 +37,7 @@ fun BodyPrincipal(navController: NavController){
             TextoPrincipal("SAN MIGUEL DE PIURA")
             TextoSecundario(id = R.drawable.logo_sm)
             SimpleButton(navController)
-            SimpleButton2()
+            SimpleButton2(navController)
         }
 
     }
@@ -94,9 +94,10 @@ fun SimpleButton(navController: NavController) {
 }
 
 @Composable
-fun SimpleButton2() {
+fun SimpleButton2(navController: NavController) {
     Button(onClick = {
         //your onclick code here
+        navController.navigate(route = AppPantallas.PantallaInfoColegio.route)
     },
         modifier = Modifier
             .fillMaxSize()

@@ -100,7 +100,7 @@ fun Login(navController: NavController) {
                             id = it.id
                             when(id_rol){
                                 "2" -> navController.navigate(route = AppPantallas.PantallaDocente.route + "/$id")
-                                "3" -> navController.navigate(route = AppPantallas.PantallaAlumno.route + "/$id")
+                                "3" -> navController.navigate(route = AppPantallas.PantallaAlumno.route + "/13")
                             }
                         } else {
                             mensaje = ""
