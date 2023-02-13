@@ -8,6 +8,7 @@ sealed class AppPantallas(val route: String){
     object PantallaDirector: AppPantallas("Pantalla_director")
     object PantallaCursoInfo: AppPantallas("pantalla_cursoInfo")
     object PantallaInfoColegio: AppPantallas("pantalla_infoColegio")
+    object PantallaGestionarAlumnos: AppPantallas("pantalla_gestionarAlumnos")
     object PrimeraPantalla: AppPantallas("primera_pantalla")
     object SegundaPantalla: AppPantallas("segunda_pantalla")
     object LoginPantalla: AppPantallas("login")

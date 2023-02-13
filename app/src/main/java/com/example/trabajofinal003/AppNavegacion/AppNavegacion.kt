@@ -46,6 +46,9 @@ fun AppNavegacion() {
         composable(route = AppPantallas.PantallaInfoColegio.route){
             PantallaInfoColegio(navController)
         }
+        composable(route = AppPantallas.PantallaGestionarAlumnos.route){
+            PantallaGestionarAlumnos(navController)
+        }
         ///////////////////////////////
         composable(route = AppPantallas.PrimeraPantalla.route){
             PrimeraPantalla(navController)

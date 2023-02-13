@@ -8,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -62,6 +63,27 @@ fun BodyPantallaDirector(id_usuario: String?, navController: NavController) {
         TextoV01(texto = "Bienvenido director:", size_sp = 36)
         TextoV01(texto = nombres, size_sp = 30)
         TextoV01(texto = apellidos, size_sp = 30)
+        Column(modifier = Modifier.fillMaxSize(),
+//            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.padding(16.dp))
+            Button(onClick = {
+                navController.navigate(route = AppPantallas.PantallaGestionarAlumnos.route)
+            }) { Text(text = "Gestionar Alumnos") }
+            Spacer(modifier = Modifier.padding(16.dp))
+            Button(onClick = {
+                //
+            }) { Text(text = "Gestionar Docentes") }
+            Spacer(modifier = Modifier.padding(16.dp))
+            Button(onClick = {
+                //
+            }) { Text(text = "Gestionar Cursos") }
+            Spacer(modifier = Modifier.padding(16.dp))
+            Button(onClick = {
+                //
+            }) { Text(text = "Gestionar Mi Cuenta") }
+        }
 
     }
 }
