@@ -100,6 +100,7 @@ fun Login(navController: NavController) {
                             id_rol = it.id_rol
                             id = it.id
                             when(id_rol){
+                                "1" -> navController.navigate(route = AppPantallas.PantallaDirector.route + "/$id")
                                 "2" -> navController.navigate(route = AppPantallas.PantallaDocente.route + "/$id")
                                 "3" -> navController.navigate(route = AppPantallas.PantallaAlumno.route + "/$id")
                             }

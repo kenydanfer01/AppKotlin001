@@ -31,6 +31,12 @@ fun AppNavegacion() {
             })){
             PantallaAlumno(navController, it.arguments?.getString("id_usuario"))
         }
+        composable(route = AppPantallas.PantallaDirector.route + "/{id_usuario}",
+            arguments = listOf(navArgument(name = "id_usuario"){
+                type = NavType.StringType
+            })){
+            PantallaDirector(navController, it.arguments?.getString("id_usuario"))
+        }
         composable(route = AppPantallas.PantallaCursoInfo.route + "/{id_curso}",
             arguments = listOf(navArgument(name = "id_curso"){
                 type = NavType.StringType
