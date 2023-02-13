@@ -2,7 +2,6 @@
 
 package com.example.trabajofinal003.pantallas
 
-import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,18 +17,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.android.volley.Request
-import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.Volley
+import com.example.trabajofinal003.AccesoDatos.ValidarLogin
 import com.example.trabajofinal003.R
 import com.example.trabajofinal003.navegacion.AppPantallas
-import org.json.JSONException
-import org.json.JSONObject
 
 @Composable
 fun PantallaLogin(navController: NavController){
     Scaffold (topBar = {
-        TopAppBar() {
+        TopAppBar {
             Icon(imageVector = Icons.Default.ArrowBack,
                 contentDescription = "Arrow Back",
                 modifier = Modifier
@@ -141,34 +136,6 @@ fun Login(navController: NavController) {
 }
 
 
-data class UsuarioID(val id: String, val id_rol: String)
-
-fun ValidarLogin(dni: String, clave: String, respuesta: (UsuarioID?) -> Unit, contexto: Context){
-    val requestQueue = Volley.newRequestQueue(contexto)
-    val url = "http://192.168.1.6/SanMiguel/login.php?dni='$dni'&clave='$clave'"
-    val requerimiento = JsonArrayRequest(
-        Request.Method.GET,
-        url,
-        null,
-        { response ->
-            if (response.length() == 1) {
-                try {
-                    val objeto = JSONObject(response[0].toString())
-                    val usuarioId = UsuarioID(
-                        objeto.getString("id"),
-                        objeto.getString("id_rol")
-                    )
-                    respuesta(usuarioId)
-                } catch (_: JSONException) {
-                }
-            }
-            else
-                respuesta(null)
-        }
-    ) {
-    }
-    requestQueue.add(requerimiento)
-}
 
 @Composable
 fun ImagenLogin(id: Int){

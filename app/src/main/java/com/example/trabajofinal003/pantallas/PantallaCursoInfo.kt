@@ -15,14 +15,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.trabajofinal003.AccesoDatos.ObtenerCursosProfesor
-import com.example.trabajofinal003.AccesoDatos.ObtenerUsuario
-import com.example.trabajofinal003.AccesoDatos.Usuario
-import com.example.trabajofinal003.AccesoDatos.cursosProfesor
+import com.example.trabajofinal003.AccesoDatos.*
 import com.example.trabajofinal003.navegacion.AppPantallas
 
 @Composable
-fun PantallaDocente(navController: NavController, id_usuario: String?){
+fun PantallaCursoInfo(navController: NavController, id_curso: String?){
     Scaffold(
         topBar = {
             TopAppBar() {
@@ -33,7 +30,7 @@ fun PantallaDocente(navController: NavController, id_usuario: String?){
                         navController.popBackStack()
                     })
                 Spacer(modifier = Modifier.width(10.dp))
-                Text(text = "BIENVENIDO DOCENTE")
+                Text(text = "Información del Curso")
                 Spacer(modifier = Modifier.width(110.dp))
                 Text(text = "Cerrar Sesión", modifier = Modifier.clickable{
                     navController.navigate(route = AppPantallas.PantallaPrincipal.route)
@@ -41,48 +38,54 @@ fun PantallaDocente(navController: NavController, id_usuario: String?){
             }
         }
     ) {
-        BodyPantallaDocente(id_usuario, navController)
+        BodyPantallaCursoInfo(id_curso)
     }
 }
 
 @Composable
-fun BodyPantallaDocente(id_usuario: String?, navController: NavController) {
+fun BodyPantallaCursoInfo(id_curso: String?) {
     val contexto = LocalContext.current
-    var nombres by remember { mutableStateOf("") }
-    var apellidos by remember { mutableStateOf("") }
+    var nombreCurso by remember { mutableStateOf("") }
+    var id_docente by remember { mutableStateOf("") }
+    var nombreDocente by remember { mutableStateOf("") }
+    var apellidoDocente by remember { mutableStateOf("") }
+    var cantidadAlumnos by remember { mutableStateOf("") }
 
-    ObtenerUsuario(id_usuario, respuesta = {
+    ObtenerInfoCurso(id_curso, respuesta = {
         if (it != null) {
-            nombres = it.nombres
-            apellidos = it.apellidos
+            nombreCurso = it.nombreCurso
+            id_docente = it.id_docente
+            nombreDocente = it.nomDocente
+            apellidoDocente = it.apeDocente
+            cantidadAlumnos = it.cantidadAlumnos
         }
     }, contexto = contexto )
+
     Column(modifier = Modifier.fillMaxSize()
     ) {
-        TextoV01(texto = "Bienvenido docente:", size_sp = 36)
-        TextoV01(texto = nombres, size_sp = 30)
-        TextoV01(texto = apellidos, size_sp = 30)
-        ObtenerCursosProfesor(id_usuario = id_usuario, contexto = contexto)
+        TextoV01(texto = "CURSO: $nombreCurso", size_sp = 24)
+        TextoV01(texto = "DOCENTE: $nombreDocente $apellidoDocente" , size_sp = 20)
+        ObtenerAlumnosCurso(id_curso = id_curso, contexto = contexto)
         Spacer(modifier = Modifier.padding(16.dp))
+        TextoV01(texto = "LISTA DE ALUMNOS" , size_sp = 20)
+
         LazyColumn() {
-            items(cursosProfesor) { curso ->
+            var count = 0;
+            items(alumnosCurso) { alumno ->
+                count++
                 Card(
-                    elevation = 5.dp,
+                    elevation = 2.dp,
                     modifier = Modifier
-                        .padding(10.dp)
+                        .padding(6.dp)
                         .fillMaxWidth()
-                        .clickable{
-                            navController.navigate(route = AppPantallas.PantallaCursoInfo.route + "/${curso.id}")
-                        }
                 ) {
                     Column() {
-                        Text(text = "Código: " + curso.id, fontSize = 20.sp)
-                        Text(text = "Curso: " + curso.nombre, fontSize = 20.sp)
-                        }
+                        Text(text = "$count) ${alumno.apellidos}, ${alumno.nombres}."  , fontSize = 20.sp)
                     }
                 }
             }
         }
+    }
 }
 
 
