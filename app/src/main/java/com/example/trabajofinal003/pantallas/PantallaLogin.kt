@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.trabajofinal003.AccesoDatos.ValidarLogin
 import com.example.trabajofinal003.R
@@ -69,7 +70,7 @@ fun Login(navController: NavController) {
             value = dni,
             onValueChange = { dni = it },
             label = {
-                Text("Usuario")
+                Text("DNI")
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -100,7 +101,7 @@ fun Login(navController: NavController) {
                             id = it.id
                             when(id_rol){
                                 "2" -> navController.navigate(route = AppPantallas.PantallaDocente.route + "/$id")
-                                "3" -> navController.navigate(route = AppPantallas.PantallaAlumno.route + "/13")
+                                "3" -> navController.navigate(route = AppPantallas.PantallaAlumno.route + "/$id")
                             }
                         } else {
                             mensaje = ""
@@ -114,7 +115,7 @@ fun Login(navController: NavController) {
                 .fillMaxWidth()
                 .padding(30.dp, 15.dp)
         ) {
-            Text(text = "Agregar")
+            Text(text = "INGRESAR")
         }
         Text(text = mensaje)
         val onPopupDismissed = { showPopup = false }
@@ -122,7 +123,7 @@ fun Login(navController: NavController) {
             AlertDialog(
                 onDismissRequest = onPopupDismissed,
                 text = {
-                    Text("Usuario o Contraseña Inválidos")
+                    Text("DNI y/o CLAVE Inválidos. Por Favor verifique sus datos.", fontSize = 28.sp)
                 },
                 confirmButton = {
                     Button(
