@@ -52,6 +52,7 @@ fun BodyPantallaDirector(id_usuario: String?, navController: NavController) {
     var nombres by remember { mutableStateOf("") }
     var apellidos by remember { mutableStateOf("") }
 
+
     ObtenerUsuario(id_usuario, respuesta = {
         if (it != null) {
             nombres = it.nombres
@@ -89,7 +90,7 @@ fun BodyPantallaDirector(id_usuario: String?, navController: NavController) {
 
             /* Boton para acceder a la pantalla de Gestionar la Cuenta del Usuario */
             Button(onClick = {
-                //
+                navController.navigate(route = AppPantallas.PantallaGestionarCuenta.route + "/$id_usuario")
             }) { Text(text = "Gestionar Mi Cuenta") }
         }
 

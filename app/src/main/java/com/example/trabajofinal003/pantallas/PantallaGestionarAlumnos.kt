@@ -78,7 +78,7 @@ fun BodyPantallaGestionarAlumnos(navController: NavController) {
                         Icon(imageVector = Icons.Default.Edit,
                             contentDescription = "Pen",
                             modifier = Modifier.padding(horizontal = 10.dp) .clickable {
-                                    //
+                                navController.navigate(route = AppPantallas.PantallaGestionarCuenta.route + "/${alumno.id}")
                                 })
                     }
                 }

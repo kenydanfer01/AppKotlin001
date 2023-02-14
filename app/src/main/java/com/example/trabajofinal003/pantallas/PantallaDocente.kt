@@ -8,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -59,11 +60,16 @@ fun BodyPantallaDocente(id_usuario: String?, navController: NavController) {
     }, contexto = contexto )
     Column(modifier = Modifier.fillMaxSize()
     ) {
-        TextoV01(texto = "Bienvenido docente:", size_sp = 36)
+        TextoV01(texto = "Bienvenido docente:", size_sp = 25)
         TextoV01(texto = nombres, size_sp = 30)
         TextoV01(texto = apellidos, size_sp = 30)
+        /* Boton para acceder a la pantalla de Gestionar la Cuenta del Usuario */
+        Button( modifier = Modifier.align(Alignment.End).padding(15.dp),onClick = {
+            navController.navigate(route = AppPantallas.PantallaGestionarCuenta.route + "/$id_usuario")
+        }) { Text(text = "Gestionar Mi Cuenta") }
         ObtenerCursosProfesor(id_usuario = id_usuario, contexto = contexto)
-        Spacer(modifier = Modifier.padding(16.dp))
+        Spacer(modifier = Modifier.padding(8.dp))
+        TextoV01(texto = "Sus cursos a cargo:", size_sp = 25)
         LazyColumn() {
             items(cursosProfesor) { curso ->
                 Card(

@@ -46,7 +46,7 @@ fun ValidarLogin(dni: String, clave: String, respuesta: (UsuarioID?) -> Unit, co
 /* FUNCIÓN PARA OBTENER INFORMACIÓN DEL USUARIO
  1) Declaro el data class Usuario con sus atributos (id, id_rol, dni, nombres, apellidos), los cuales me
  servirán para en la vista mostrar esos datos, ya que en la respuesta de la función envío un objeto de DataClass Usuario */
-data class Usuario(val id: String, val id_rol: String, val dni: String, val nombres: String, val apellidos: String)
+data class Usuario(val id: String?, val id_rol: String, val dni: String, val clave: String, val nombres: String, val apellidos: String)
 fun ObtenerUsuario(id_usuario: String?, respuesta: (Usuario?) -> Unit, contexto: Context){
     val requestQueue = Volley.newRequestQueue(contexto)
     val url = base_route + "getUsuario.php?id_usuario='$id_usuario'"
@@ -62,6 +62,7 @@ fun ObtenerUsuario(id_usuario: String?, respuesta: (Usuario?) -> Unit, contexto:
                         objeto.getString("id"),
                         objeto.getString("id_rol"),
                         objeto.getString("dni"),
+                        objeto.getString("clave"),
                         objeto.getString("nombres"),
                         objeto.getString("apellidos"),
                     )
@@ -292,6 +293,35 @@ fun insertarUsuario(dni: String, clave: String, nombres: String, apellidos: Stri
     requestQueue.add(requerimiento)
 }
 
+/* FUNCIÓN PARA ACTUALIZAR LOS DATOS DE UN USUARIO */
+
+fun actualizarUsuario(usuario: Usuario, contexto: Context, respuesta: (Boolean) -> Unit) {
+    val requestQueue = Volley.newRequestQueue(contexto)
+    val url = base_route + "updateUsuario.php"
+    val parametros = JSONObject()
+    parametros.put("dni", usuario.dni)
+    parametros.put("clave", usuario.clave)
+    parametros.put("nombres", usuario.nombres)
+    parametros.put("apellidos", usuario.apellidos)
+    parametros.put("id", usuario.id)
+    val requerimiento = JsonObjectRequest(
+        Request.Method.POST,
+        url,
+        parametros,
+        { response ->
+            try {
+                val resu = response["resultado"].toString()
+                if (resu == "1")
+                    respuesta(true)
+                else
+                    respuesta(false)
+            } catch (e: JSONException) {
+                respuesta(false)
+            }
+        }
+    ) { respuesta(false) }
+    requestQueue.add(requerimiento)
+}
 
 
 

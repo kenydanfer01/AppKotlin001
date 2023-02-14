@@ -24,6 +24,12 @@ fun AppNavegacion() {
         composable(route = AppPantallas.PantallaInfoColegio.route){
             PantallaInfoColegio(navController)
         }
+        composable(route = AppPantallas.PantallaGestionarCuenta.route + "/{id_usuario}",
+            arguments = listOf(navArgument(name = "id_usuario"){
+                type = NavType.StringType
+            })){
+            PantallaGestionarCuenta(navController, it.arguments?.getString("id_usuario"))
+        }
 
 /* PANTALLAS SEGÚN USUARIOS: Podemos ver que reciben parámetros */
         composable(route = AppPantallas.PantallaDocente.route + "/{id_usuario}",

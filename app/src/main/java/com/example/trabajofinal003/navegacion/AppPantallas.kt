@@ -6,6 +6,7 @@ sealed class AppPantallas(val route: String){
     object PantallaPrincipal: AppPantallas("pantalla_principal")
     object PantallaLogin: AppPantallas("pantalla_login")
     object PantallaInfoColegio: AppPantallas("pantalla_infoColegio")
+    object PantallaGestionarCuenta: AppPantallas("pantalla_gestionarCuenta")
 
     /* PANTALLAS SEGÚN USUARIO: */
     object PantallaDocente: AppPantallas("Pantalla_docente")
