@@ -21,7 +21,7 @@ import com.example.trabajofinal003.AccesoDatos.*
 import com.example.trabajofinal003.navegacion.AppPantallas
 
 @Composable
-fun PantallaGestionarAlumnos(navController: NavController){
+fun PantallaGestionarDocentes(navController: NavController){
     Scaffold(
         topBar = {
             TopAppBar() {
@@ -40,32 +40,32 @@ fun PantallaGestionarAlumnos(navController: NavController){
             }
         }
     ) {
-        BodyPantallaGestionarAlumnos(navController)
+        BodyPantallaGestionarDocentes(navController)
     }
 }
 
 @Composable
-fun BodyPantallaGestionarAlumnos(navController: NavController) {
+fun BodyPantallaGestionarDocentes(navController: NavController) {
     val contexto = LocalContext.current
 
     Column(modifier = Modifier.fillMaxSize()
     ) {
-        ObtenerListaUsuarios(id_rol = "3",contexto = contexto)
+        ObtenerListaUsuarios(id_rol = "2", contexto = contexto)
         Button(modifier = Modifier.padding(start = 250.dp),
             onClick = {
-            /* Al dar click vamos a la Pantalla de Agregar Alumno */
-            navController.navigate(AppPantallas.PantallaAgregarAlumno.route)
-        }) {
-            Text(text = "Agregar Alumno")
+                /* Al dar click vamos a la Pantalla de Agregar Alumno */
+                // navController.navigate(AppPantallas.PantallaAgregarDocente.route)
+            }) {
+            Text(text = "Agregar Docente")
         }
         /* Spacer sólo es un espacio en blanco, vacío */
         Spacer(modifier = Modifier.padding(16.dp))
         /* TextoV01 es una función para mostrar Texto */
-        TextoV01(texto = "LISTA DE ALUMNOS:" , size_sp = 20)
+        TextoV01(texto = "LISTA DE DOCENTES:" , size_sp = 20)
         /* LazyColumn es una columna que permite desplazamiento o Scroll */
         LazyColumn() {
             var count = 0;
-            items(listaUsuarios) { alumno ->
+            items(listaUsuarios) { usuario ->
                 count++
                 Card(
                     elevation = 1.dp,
@@ -74,18 +74,19 @@ fun BodyPantallaGestionarAlumnos(navController: NavController) {
                         .fillMaxWidth()
                 ) {
                     Row (horizontalArrangement = Arrangement.SpaceBetween){
-                        Text(text = "$count) ${alumno.dni} - ${alumno.apellidos}."  , fontSize = 18.sp)
+                        Text(text = "$count) ${usuario.dni} - ${usuario.apellidos}."  , fontSize = 18.sp)
                         Icon(imageVector = Icons.Default.Edit,
                             contentDescription = "Pen",
                             modifier = Modifier.padding(horizontal = 10.dp) .clickable {
-                                    //
-                                })
+                                //
+                            })
                     }
                 }
             }
         }
     }
 }
+
 
 
 

@@ -18,8 +18,13 @@ sealed class AppPantallas(val route: String){
     /* PANTALLAS PARA ALUMNOS: */
 
 
-    /* PANTALLAS PARA EL DIRECTOR: */
+    /* ---------------------------PANTALLAS PARA EL DIRECTOR:------------------------------------- */
+    /* PANTALLAS PARA LISTAR (GESTIONAR) */
     object PantallaGestionarAlumnos: AppPantallas("pantalla_gestionarAlumnos")
+    object PantallaGestionarCursos: AppPantallas("pantalla_gestionarCursos")
+    object PantallaGestionarDocentes: AppPantallas("pantalla_gestionarDocentes")
+
+    /* PANTALLAS PARA REGISTRAR O INSERTAR */
     object PantallaAgregarAlumno: AppPantallas("pantalla_agregarAlumno")
 
     /* PANTALLAS AUXILIARES Y DE PRUEBAS: (Luego las borraré)*/

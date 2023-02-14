@@ -21,7 +21,7 @@ import com.example.trabajofinal003.AccesoDatos.*
 import com.example.trabajofinal003.navegacion.AppPantallas
 
 @Composable
-fun PantallaGestionarAlumnos(navController: NavController){
+fun PantallaGestionarCursos(navController: NavController){
     Scaffold(
         topBar = {
             TopAppBar() {
@@ -32,7 +32,7 @@ fun PantallaGestionarAlumnos(navController: NavController){
                         navController.popBackStack()
                     })
                 Spacer(modifier = Modifier.width(10.dp))
-                Text(text = "Gestionar Alumnos")
+                Text(text = "Gestionar Cursos")
                 Spacer(modifier = Modifier.width(110.dp))
                 Text(text = "Cerrar Sesión", modifier = Modifier.clickable{
                     navController.navigate(route = AppPantallas.PantallaPrincipal.route)
@@ -40,32 +40,32 @@ fun PantallaGestionarAlumnos(navController: NavController){
             }
         }
     ) {
-        BodyPantallaGestionarAlumnos(navController)
+        BodyPantallaGestionarCursos(navController)
     }
 }
 
 @Composable
-fun BodyPantallaGestionarAlumnos(navController: NavController) {
+fun BodyPantallaGestionarCursos(navController: NavController) {
     val contexto = LocalContext.current
 
     Column(modifier = Modifier.fillMaxSize()
     ) {
-        ObtenerListaUsuarios(id_rol = "3",contexto = contexto)
+        ObtenerListaCursos(contexto = contexto)
         Button(modifier = Modifier.padding(start = 250.dp),
             onClick = {
-            /* Al dar click vamos a la Pantalla de Agregar Alumno */
-            navController.navigate(AppPantallas.PantallaAgregarAlumno.route)
-        }) {
-            Text(text = "Agregar Alumno")
+                /* Al dar click vamos a la Pantalla de Agregar Curso */
+                /* Aún no existe esa pantalla */
+            }) {
+            Text(text = "Agregar Curso")
         }
         /* Spacer sólo es un espacio en blanco, vacío */
         Spacer(modifier = Modifier.padding(16.dp))
         /* TextoV01 es una función para mostrar Texto */
-        TextoV01(texto = "LISTA DE ALUMNOS:" , size_sp = 20)
+        TextoV01(texto = "LISTA DE CURSOS:" , size_sp = 20)
         /* LazyColumn es una columna que permite desplazamiento o Scroll */
         LazyColumn() {
             var count = 0;
-            items(listaUsuarios) { alumno ->
+            items(listaCursos) { curso ->
                 count++
                 Card(
                     elevation = 1.dp,
@@ -74,12 +74,13 @@ fun BodyPantallaGestionarAlumnos(navController: NavController) {
                         .fillMaxWidth()
                 ) {
                     Row (horizontalArrangement = Arrangement.SpaceBetween){
-                        Text(text = "$count) ${alumno.dni} - ${alumno.apellidos}."  , fontSize = 18.sp)
+                        Text(text = "$count) - ${curso.nombre}."  , fontSize = 18.sp)
                         Icon(imageVector = Icons.Default.Edit,
                             contentDescription = "Pen",
                             modifier = Modifier.padding(horizontal = 10.dp) .clickable {
-                                    //
-                                })
+                                /* Al dar click vamos a la Pantalla de Editar Curso */
+                                /* Aún no existe esa pantalla */
+                            })
                     }
                 }
             }

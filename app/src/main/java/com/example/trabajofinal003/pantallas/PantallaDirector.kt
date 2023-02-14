@@ -75,15 +75,15 @@ fun BodyPantallaDirector(id_usuario: String?, navController: NavController) {
             }) { Text(text = "Gestionar Alumnos") }
             Spacer(modifier = Modifier.padding(16.dp))
 
-            /* Boton para acceder a la pantalla de Gestionar Docentes */
+            /* PARA ACCEDER A PANTALLA DE GESTIONAR DOCENTES */
             Button(onClick = {
-                //
+                navController.navigate(AppPantallas.PantallaGestionarDocentes.route)
             }) { Text(text = "Gestionar Docentes") }
             Spacer(modifier = Modifier.padding(16.dp))
 
-            /* Boton para acceder a la pantalla de Gestionar Cursos */
+            /* PARA ACCEDER A PANTALLA DE GESTIONAR CURSOS */
             Button(onClick = {
-                //
+                navController.navigate(AppPantallas.PantallaGestionarCursos.route)
             }) { Text(text = "Gestionar Cursos") }
             Spacer(modifier = Modifier.padding(16.dp))
 
