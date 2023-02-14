@@ -35,7 +35,7 @@ fun BodyPrincipal(navController: NavController){
             ImagenPrincipal(R.drawable.principal)
             Espacio(16)
             TextoPrincipal("SAN MIGUEL DE PIURA")
-            TextoSecundario(id = R.drawable.logo_sm)
+            ImagenSecundario(id = R.drawable.logo_sm)
             SimpleButton(navController)
             SimpleButton2(navController)
         }
@@ -70,7 +70,7 @@ fun Espacio(numero: Int){
 }
 
 @Composable
-fun TextoSecundario(id: Int){
+fun ImagenSecundario(id: Int){
     Image(painter = painterResource(id = id),
         contentDescription = "Logo Colegio" ,
         modifier = Modifier

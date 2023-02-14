@@ -13,12 +13,15 @@ import com.example.trabajofinal003.pantallas.*
 fun AppNavegacion() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AppPantallas.PantallaPrincipal.route){
+        /* Para la Pantalla Principal */
         composable(route = AppPantallas.PantallaPrincipal.route){
             PantallaPrincipal(navController)
         }
+        /* Para la Pantalla del Login */
         composable(route = AppPantallas.PantallaLogin.route){
             PantallaLogin(navController)
         }
+        /* Para la Pantalla del Docente */
         composable(route = AppPantallas.PantallaDocente.route + "/{id_usuario}",
             arguments = listOf(navArgument(name = "id_usuario"){
                 type = NavType.StringType

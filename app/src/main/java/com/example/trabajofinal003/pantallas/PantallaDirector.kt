@@ -68,18 +68,26 @@ fun BodyPantallaDirector(id_usuario: String?, navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.padding(16.dp))
+
+            /* Boton para acceder a la pantalla de Gestionar Alumnos */
             Button(onClick = {
                 navController.navigate(route = AppPantallas.PantallaGestionarAlumnos.route)
             }) { Text(text = "Gestionar Alumnos") }
             Spacer(modifier = Modifier.padding(16.dp))
+
+            /* Boton para acceder a la pantalla de Gestionar Docentes */
             Button(onClick = {
                 //
             }) { Text(text = "Gestionar Docentes") }
             Spacer(modifier = Modifier.padding(16.dp))
+
+            /* Boton para acceder a la pantalla de Gestionar Cursos */
             Button(onClick = {
                 //
             }) { Text(text = "Gestionar Cursos") }
             Spacer(modifier = Modifier.padding(16.dp))
+
+            /* Boton para acceder a la pantalla de Gestionar la Cuenta del Usuario */
             Button(onClick = {
                 //
             }) { Text(text = "Gestionar Mi Cuenta") }

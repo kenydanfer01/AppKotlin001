@@ -131,7 +131,10 @@ fun ObtenerAlumnosCurso(id_curso: String?, contexto: Context) {
     requestQueue.add(jsonObjectRequest)
 }
 
-/* PARA OBTENER LA LISTA DE TODOS ALUMNOS EN GENERAL */
+/* PARA OBTENER LA LISTA DE TODOS ALUMNOS EN GENERAL
+* 1) Declaro un Data Class Alumno, con sus atributos (id_alumno, dni, apellidos, nombres)
+* 2) Declaro un val Arreglo MutableState (que cambiará de estado) al agregarle Alumno (objetos de la data class Alumno)
+* 3) Empieza la Función ObtenerListaAlumnos y sólo recibe el parámetro de tipo Context */
 data class Alumno(val id_alumno: String, val dni: String, val apellidos: String, val nombres: String)
 val listaAlumnos = mutableStateListOf<Alumno>()
 fun ObtenerListaAlumnos(contexto: Context) {

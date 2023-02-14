@@ -58,8 +58,11 @@ fun BodyPantallaGestionarAlumnos(navController: NavController) {
             Text(text = "Agregar Alumno")
 
         }
+        /* Spacer sólo es un espacio en blanco, vacío */
         Spacer(modifier = Modifier.padding(16.dp))
+        /* TextoV01 es una función para mostrar Texto */
         TextoV01(texto = "LISTA DE ALUMNOS:" , size_sp = 20)
+        /* LazyColumn es una columna que permite desplazamiento o Scroll */
         LazyColumn() {
             var count = 0;
             items(listaAlumnos) { alumno ->
