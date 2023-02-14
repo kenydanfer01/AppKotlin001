@@ -10,8 +10,8 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONException
 import org.json.JSONObject
 
-const val base_route = "http://192.168.1.6/SanMiguel/"
-
+const val base_route = "http://192.168.1.2/SanMiguel/"
+/*Hago esto solo para una prueba de commit */
 data class UsuarioID(val id: String, val id_rol: String)
 
 fun ValidarLogin(dni: String, clave: String, respuesta: (UsuarioID?) -> Unit, contexto: Context){
