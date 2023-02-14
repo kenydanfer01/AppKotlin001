@@ -26,6 +26,7 @@ sealed class AppPantallas(val route: String){
 
     /* PANTALLAS PARA REGISTRAR O INSERTAR */
     object PantallaAgregarAlumno: AppPantallas("pantalla_agregarAlumno")
+    object PantallaAgregarDocente: AppPantallas("pantalla_agregarDocente")
 
     /* PANTALLAS AUXILIARES Y DE PRUEBAS: (Luego las borraré)*/
     object PrimeraPantalla: AppPantallas("primera_pantalla")

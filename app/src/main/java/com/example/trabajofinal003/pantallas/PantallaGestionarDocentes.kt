@@ -54,7 +54,7 @@ fun BodyPantallaGestionarDocentes(navController: NavController) {
         Button(modifier = Modifier.padding(start = 250.dp),
             onClick = {
                 /* Al dar click vamos a la Pantalla de Agregar Alumno */
-                // navController.navigate(AppPantallas.PantallaAgregarDocente.route)
+                navController.navigate(AppPantallas.PantallaAgregarDocente.route)
             }) {
             Text(text = "Agregar Docente")
         }

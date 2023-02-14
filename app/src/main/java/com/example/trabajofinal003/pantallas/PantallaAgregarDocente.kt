@@ -15,8 +15,9 @@ import androidx.navigation.NavController
 import com.example.trabajofinal003.AccesoDatos.insertarUsuario
 import com.example.trabajofinal003.navegacion.AppPantallas
 
+
 @Composable
-fun PantallaAgregarAlumno(navController: NavController){
+fun PantallaAgregarDocente(navController: NavController){
     Scaffold(
         topBar = {
             TopAppBar() {
@@ -27,7 +28,7 @@ fun PantallaAgregarAlumno(navController: NavController){
                         navController.popBackStack()
                     })
                 Spacer(modifier = Modifier.width(10.dp))
-                Text(text = "Registrar Nuevo Alumno")
+                Text(text = "Registrar Nuevo Docente")
                 Spacer(modifier = Modifier.width(110.dp))
                 Text(text = "Cerrar Sesión", modifier = Modifier.clickable{
                     navController.navigate(route = AppPantallas.PantallaPrincipal.route)
@@ -35,12 +36,12 @@ fun PantallaAgregarAlumno(navController: NavController){
             }
         }
     ) {
-        BodyPantallaAgregarAlumno(navController)
+        BodyPantallaAgregarDocente(navController)
     }
 }
 
 @Composable
-fun BodyPantallaAgregarAlumno(navController: NavController){
+fun BodyPantallaAgregarDocente(navController: NavController){
     val contexto = LocalContext.current
     Column(
         modifier = Modifier.fillMaxSize()
@@ -83,25 +84,25 @@ fun BodyPantallaAgregarAlumno(navController: NavController){
         Button(
             onClick = {
                 /* Llamamos a la Función insertarUsuario, y le envíamos los parámetros necesarios
-                * Nótese que en id_rol se envía el 3, ya que se trata de Alumnos.*/
-                      insertarUsuario(
-                          dni = dni,
-                          clave = clave,
-                          nombres = nombres,
-                          apellidos =  apellidos,
-                          id_rol = "3", /* Porque se trata de Alumnos, el id_rol = 3 */
-                          contexto = contexto,
-                          respuesta = {
-                              mensaje = if (it) {
-                                "problemas en la carga"
-                            } else
-                                "se cargaron los datos"
-                              dni = ""
-                              clave = "123456"
-                              nombres = ""
-                              apellidos =  ""
-                          }
-                      )
+                * Nótese que en id_rol se envía el 2, ya que se trata de Docentes.*/
+                insertarUsuario(
+                    dni = dni,
+                    clave = clave,
+                    nombres = nombres,
+                    apellidos =  apellidos,
+                    id_rol = "2", /* Porque se trata de Docentes, el id_rol = 2 */
+                    contexto = contexto,
+                    respuesta = {
+                        mensaje = if (it) {
+                            "problemas en la carga"
+                        } else
+                            "se cargaron los datos"
+                        dni = ""
+                        clave = "123456"
+                        nombres = ""
+                        apellidos =  ""
+                    }
+                )
 
             },
             modifier = Modifier.padding(10.dp)

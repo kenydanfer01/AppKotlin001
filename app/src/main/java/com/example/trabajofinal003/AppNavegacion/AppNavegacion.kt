@@ -59,6 +59,7 @@ fun AppNavegacion() {
         composable(route = AppPantallas.PantallaAgregarAlumno.route) { PantallaAgregarAlumno(navController) }
         composable(route = AppPantallas.PantallaGestionarCursos.route) { PantallaGestionarCursos( navController ) }
         composable(route = AppPantallas.PantallaGestionarDocentes.route) {PantallaGestionarDocentes( navController)}
+        composable(route = AppPantallas.PantallaAgregarDocente.route) { PantallaAgregarDocente(navController) }
 
 /* PANTALLAS AUXILIARES Y DE PRUEBAS: (Luego las borraré)*/
         composable(route = AppPantallas.PrimeraPantalla.route){ PrimeraPantalla(navController) }
