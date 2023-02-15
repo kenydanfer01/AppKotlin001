@@ -7,6 +7,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -38,12 +41,12 @@ fun PantallaCursoInfo(navController: NavController, id_curso: String?){
             }
         }
     ) {
-        BodyPantallaCursoInfo(id_curso)
+        BodyPantallaCursoInfo(navController,id_curso)
     }
 }
 
 @Composable
-fun BodyPantallaCursoInfo(id_curso: String?) {
+fun BodyPantallaCursoInfo(navController: NavController, id_curso: String?) {
     val contexto = LocalContext.current
     var nombreCurso by remember { mutableStateOf("") }
     var id_docente by remember { mutableStateOf("") }
@@ -79,8 +82,20 @@ fun BodyPantallaCursoInfo(id_curso: String?) {
                         .padding(6.dp)
                         .fillMaxWidth()
                 ) {
-                    Column() {
+                    Row( horizontalArrangement = Arrangement.SpaceBetween) {
                         Text(text = "$count) ${alumno.apellidos}, ${alumno.nombres}."  , fontSize = 20.sp)
+                        Row() {
+                            Icon(imageVector = Icons.Default.Search,
+                                contentDescription = "Search",
+                                modifier = Modifier.padding(3.dp).clickable {
+                                    navController.navigate(route = AppPantallas.PantallaVerNotas.route + "/${alumno.id}")
+                                })
+                            Icon(imageVector = Icons.Default.Edit,
+                                contentDescription = "Edit",
+                                modifier = Modifier.padding(3.dp).clickable {
+                                    navController.navigate(route = AppPantallas.PantallaActualizarNotas.route + "/${alumno.id}")
+                                })
+                        }
                     }
                 }
             }

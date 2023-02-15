@@ -78,155 +78,6 @@ fun ObtenerUsuario(id_usuario: String?, respuesta: (Usuario?) -> Unit, contexto:
     requestQueue.add(requerimiento)
 }
 
-
-data class CursoProfesor(val id: String, val nombre: String, val id_docente: String)
-val cursosProfesor = mutableStateListOf<CursoProfesor>()
-fun ObtenerCursosProfesor(id_usuario: String?, contexto: Context) {
-    val url = base_route + "getCursosProfesor.php?id_usuario='$id_usuario'"
-    val requestQueue = Volley.newRequestQueue(contexto)
-    val jsonObjectRequest = JsonObjectRequest(
-        Request.Method.GET,
-        url,
-        null,
-        { response ->
-            val jsonArray = response.getJSONArray("lista")
-            cursosProfesor.clear()
-            for (i in 0 until jsonArray.length()) {
-                val registro = jsonArray.getJSONObject(i)
-                val id = registro.getString("id")
-                val nombre = registro.getString("nombre")
-                val id_docente = registro.getString("id_docente")
-                val add = cursosProfesor.add(CursoProfesor(id, nombre, id_docente))
-            }
-        },
-        { error ->
-        }
-    )
-    requestQueue.add(jsonObjectRequest)
-}
-
-/* PARA OBTENER LA LISTA DE LOS ALUMNOS QUE PERTENECEN A UN CURSO */
-data class AlumnoCurso(val id: String, val id_alumno: String, val apellidos: String, val nombres: String)
-val alumnosCurso = mutableStateListOf<AlumnoCurso>()
-fun ObtenerAlumnosCurso(id_curso: String?, contexto: Context) {
-    val url = base_route + "getAlumnosCurso.php?id_curso='$id_curso'"
-    val requestQueue = Volley.newRequestQueue(contexto)
-    val jsonObjectRequest = JsonObjectRequest(
-        Request.Method.GET,
-        url,
-        null,
-        { response ->
-            val jsonArray = response.getJSONArray("lista")
-            alumnosCurso.clear()
-            for (i in 0 until jsonArray.length()) {
-                val registro = jsonArray.getJSONObject(i)
-                val id = registro.getString("id")
-                val id_alumno = registro.getString("id_alumno")
-                val apellidos = registro.getString("apellidos")
-                val nombres = registro.getString("nombres")
-
-                val add = alumnosCurso.add(AlumnoCurso(id, id_alumno, apellidos, nombres))
-            }
-        },
-        { error ->
-        }
-    )
-    requestQueue.add(jsonObjectRequest)
-}
-
-/* PARA OBTENER LA LISTA DE LOS ALUMNOS QUE NOOO PERTENECEN A UN CURSO */
-fun ObtenerAlumnosSinCurso(id_curso: String?, contexto: Context) {
-    val url = base_route + "getAlumnosSinCurso.php?id_curso='$id_curso'"
-    val requestQueue = Volley.newRequestQueue(contexto)
-    val jsonObjectRequest = JsonObjectRequest(
-        Request.Method.GET,
-        url,
-        null,
-        { response ->
-            val jsonArray = response.getJSONArray("lista")
-            listaUsuarios.clear()
-            for (i in 0 until jsonArray.length()) {
-                val registro = jsonArray.getJSONObject(i)
-                val id = registro.getString("id")
-                val dni =  registro.getString("dni")
-                val apellidos = registro.getString("apellidos")
-                val nombres = registro.getString("nombres")
-                listaUsuarios.add(UsuarioInfo(id, dni, apellidos, nombres))
-            }
-        },
-        { error ->
-        }
-    )
-    requestQueue.add(jsonObjectRequest)
-}
-
-
-
-/* ---------------------- FUNCIONES PARA OBTENER DATOS (SIN PARÁMETROS)--------------------------- */
-
-/* PARA OBTENER LA LISTA DE TODOS USUARIOS EN GENERAL (POR FILTRO SEGÚN SU ROL "id_rol" )
-* 1) Declaro un Data Class UsuarioInfo, con sus atributos (id, dni, apellidos, nombres)
-* 2) Declaro un val Arreglo MutableState (que cambiará de estado) al agregarle Usuario (objetos de la data class UsuarioInfo)
-* 3) Empieza la Función ObtenerListaUsuarios y recibe el parámetro de id_rol y el de tipo Context
-* 4) siempre me retorna la lista de Usuarios, segun el contexto en que se encuentre */
-data class UsuarioInfo(val id: String, val dni: String, val apellidos: String, val nombres: String)
-val listaUsuarios = mutableStateListOf<UsuarioInfo>()
-fun ObtenerListaUsuarios(id_rol: String, contexto: Context) {
-    val url = base_route + "getListaUsuarios.php?id_rol='$id_rol'"
-    val requestQueue = Volley.newRequestQueue(contexto)
-    val jsonObjectRequest = JsonObjectRequest(
-        Request.Method.GET,
-        url,
-        null,
-        { response ->
-            val jsonArray = response.getJSONArray("lista")
-            listaUsuarios.clear()
-            for (i in 0 until jsonArray.length()) {
-                val registro = jsonArray.getJSONObject(i)
-                val id = registro.getString("id")
-                val dni = registro.getString("dni")
-                val apellidos = registro.getString("apellidos")
-                val nombres = registro.getString("nombres")
-                listaUsuarios.add( UsuarioInfo(id, dni, apellidos, nombres) )
-            }
-        },
-        { error ->
-        }
-    )
-    requestQueue.add(jsonObjectRequest)
-}
-
-
-/* PARA OBTENER LA LISTA DE TODOS CURSOS EN GENERAL
-* 1) Declaro un Data Class Curso, con sus atributos (id_curso, nombre)
-* 2) Declaro un val Arreglo MutableState (que cambiará de estado) al agregarle Curso (objetos de la data class Curso)
-* 3) Empieza la Función ObtenerListaCurso y sólo recibe el parámetro de tipo Context */
-data class Curso(val id_curso: String, val nombre: String)
-val listaCursos = mutableStateListOf<Curso>()
-fun ObtenerListaCursos(contexto: Context) {
-    val url = base_route + "getListaCursos.php"
-    val requestQueue = Volley.newRequestQueue(contexto)
-    val jsonObjectRequest = JsonObjectRequest(
-        Request.Method.GET,
-        url,
-        null,
-        { response ->
-            val jsonArray = response.getJSONArray("lista")
-            listaCursos.clear()
-            for (i in 0 until jsonArray.length()) {
-                val registro = jsonArray.getJSONObject(i)
-                val id_curso = registro.getString("id")
-                val nombre = registro.getString("nombre")
-                val add = listaCursos.add(Curso(id_curso, nombre))
-            }
-        },
-        { error ->
-        }
-    )
-    requestQueue.add(jsonObjectRequest)
-}
-
-
 /* PARA OBTENER LA INFORMACIÓN DE UN CURSO, con info del Docente a cargo y la cantidad de alumnos */
 data class InfoCurso(val id_curso: String, val nombreCurso: String, val id_docente: String,
                      val nomDocente: String, val apeDocente: String, val cantidadAlumnos: String)
@@ -261,171 +112,39 @@ fun ObtenerInfoCurso(id_curso: String?, respuesta: (InfoCurso?) -> Unit, context
     requestQueue.add(requerimiento)
 }
 
-/* PARA OBTENER LOS CURSOS EN LOS QUE ESTÁ INSCRITO CADA ALUMNO*/
-data class CursoAlumno(val id_curso: String, val nombreCurso: String, val id_docente: String,
-                       val apeDocente: String, val nomDocente: String)
-val cursosAlumno = mutableStateListOf<CursoAlumno>()
-fun ObtenerCursosAlumno(id_usuario: String?, contexto: Context) {
-    val url = base_route + "getCursosAlumno.php?id_usuario='$id_usuario'"
+/* ----------------------- OBTENER LAS NOTAS DE UN ALUMNO EN UN CURSO ----------------------------- */
+data class NotasCurso(val id: String?, val id_curso: String, val id_alumno: String,
+                      val n1: String, val n2: String, val n3: String, val n4: String, val prom: String)
+fun ObtenerNotas(id_registro: String?, contexto: Context, respuesta: (NotasCurso?) -> Unit){
     val requestQueue = Volley.newRequestQueue(contexto)
-    val jsonObjectRequest = JsonObjectRequest(
+    val url = base_route + "getNotasAlumno.php?id_registro=$id_registro"
+    val requerimiento = JsonArrayRequest(
         Request.Method.GET,
         url,
         null,
         { response ->
-            val jsonArray = response.getJSONArray("lista")
-            cursosAlumno.clear()
-            for (i in 0 until jsonArray.length()) {
-                val registro = jsonArray.getJSONObject(i)
-                val id_curso = registro.getString("id_curso")
-                val nombreCurso = registro.getString("nombreCurso")
-                val id_docente = registro.getString("id_docente")
-                val apeDocente = registro.getString("apeDocente")
-                val nomDocente = registro.getString("nomDocente")
-                val add = cursosAlumno.add(CursoAlumno(id_curso, nombreCurso, id_docente, apeDocente, nomDocente))
+            if (response.length() == 1) {
+                try {
+                    val objeto = JSONObject(response[0].toString())
+                    val notasCurso = NotasCurso(
+                        objeto.getString("id"),
+                        objeto.getString("id_curso"),
+                        objeto.getString("id_alumno"),
+                        objeto.getString("nota1"),
+                        objeto.getString("nota2"),
+                        objeto.getString("nota3"),
+                        objeto.getString("nota4"),
+                        objeto.getString("promedio"),
+                    )
+                    respuesta(notasCurso)
+                } catch (_: JSONException) {
+                }
             }
-        },
-        { error ->
-        }
-    )
-    requestQueue.add(jsonObjectRequest)
-}
-
-
-/* -------------------------- FUNCIONES PARA INSERTAR DATOS ------------------------------------- */
-/* FUNCIÓN PARA INSERTAR UN NUEVO USUARIO (Docente, Alumno o Director) */
-fun insertarUsuario(dni: String, clave: String, nombres: String, apellidos: String, id_rol: String,
-                    contexto: Context, respuesta: (Boolean) -> Unit) {
-    val requestQueue = Volley.newRequestQueue(contexto)
-    val url = base_route + "setUsuario.php"
-    val parametros= JSONObject()
-    parametros.put("dni", dni)
-    parametros.put("clave", clave)
-    parametros.put("nombres", nombres)
-    parametros.put("apellidos", apellidos)
-    parametros.put("id_rol", id_rol)
-    val requerimiento = JsonObjectRequest(
-        Request.Method.POST,
-        url,
-        parametros,
-        { response ->
-            if (response.get("respuesta").toString() == "ok")
-                respuesta(true)
             else
-                respuesta(false)
-        },
-        {
-            respuesta(false)
+                respuesta(null)
         }
-    )
+    ) {
+    }
     requestQueue.add(requerimiento)
 }
-
-/* FUNCIÓN PARA ACTUALIZAR LOS DATOS DE UN USUARIO */
-
-fun actualizarUsuario(usuario: Usuario, contexto: Context, respuesta: (Boolean) -> Unit) {
-    val requestQueue = Volley.newRequestQueue(contexto)
-    val url = base_route + "updateUsuario.php"
-    val parametros = JSONObject()
-    parametros.put("dni", usuario.dni)
-    parametros.put("clave", usuario.clave)
-    parametros.put("nombres", usuario.nombres)
-    parametros.put("apellidos", usuario.apellidos)
-    parametros.put("id", usuario.id)
-    val requerimiento = JsonObjectRequest(
-        Request.Method.POST,
-        url,
-        parametros,
-        { response ->
-            try {
-                val resu = response["resultado"].toString()
-                if (resu == "1")
-                    respuesta(true)
-                else
-                    respuesta(false)
-            } catch (e: JSONException) {
-                respuesta(false)
-            }
-        }
-    ) { respuesta(false) }
-    requestQueue.add(requerimiento)
-}
-
-/* FUNCIÓN PARA INSERTAR UN NUEVO CURSO (nombreCurso, id_docente) */
-fun insertarCurso(nombreCurso: String, id_docente: String, contexto: Context, respuesta: (Boolean) -> Unit) {
-    val requestQueue = Volley.newRequestQueue(contexto)
-    val url = base_route + "setCurso.php"
-    val parametros= JSONObject()
-    parametros.put("nombreCurso", nombreCurso)
-    parametros.put("id_docente", id_docente)
-    val requerimiento = JsonObjectRequest(
-        Request.Method.POST,
-        url,
-        parametros,
-        { response ->
-            if (response.get("respuesta").toString() == "ok")
-                respuesta(true)
-            else
-                respuesta(false)
-        },
-        {
-            respuesta(false)
-        }
-    )
-    requestQueue.add(requerimiento)
-}
-
-
-/* FUNCIÓN PARA INSERTAR UN ALUMNO EN UN CURSO */
-fun insertarAlumnoCurso(id_curso: String?, id_alumno: String, contexto: Context, respuesta: (Boolean) -> Unit) {
-    val requestQueue = Volley.newRequestQueue(contexto)
-    val url = base_route + "setAlumnoCurso.php"
-    val parametros= JSONObject()
-    parametros.put("id_curso", id_curso)
-    parametros.put("id_alumno", id_alumno)
-    val requerimiento = JsonObjectRequest(
-        Request.Method.POST,
-        url,
-        parametros,
-        { response ->
-            if (response.get("respuesta").toString() == "ok")
-                respuesta(true)
-            else
-                respuesta(false)
-        },
-        {
-            respuesta(false)
-        }
-    )
-    requestQueue.add(requerimiento)
-}
-
-
-/* FUNCIÓN PARA ELIMINAR EL REGISTRO DE UN ALUMNO EN UN CURSO */
-fun eliminarAlumnoCurso(id_curso: String?, id_alumno: String, contexto: Context, respuesta: (Boolean) -> Unit) {
-    val requestQueue = Volley.newRequestQueue(contexto)
-    val url = base_route + "deleteAlumnoCurso.php"
-    val parametros = JSONObject()
-    parametros.put("id_curso", id_curso)
-    parametros.put("id_alumno", id_alumno)
-    val requerimiento = JsonObjectRequest(
-        Request.Method.POST,
-        url,
-        parametros,
-        { response ->
-            try {
-                val resu = response["resultado"].toString()
-                if (resu == "1")
-                    respuesta(true)
-                else
-                    respuesta(false)
-            } catch (e: JSONException) {
-                respuesta(false)
-            }
-        }
-    ) { respuesta(false) }
-    requestQueue.add(requerimiento)
-}
-
-
 

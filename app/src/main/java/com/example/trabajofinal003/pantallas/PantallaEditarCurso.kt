@@ -95,7 +95,7 @@ fun BodyPantallaEditarCurso(navController: NavController, id_curso: String?) {
                             Icon(imageVector = Icons.Default.Search,
                                 contentDescription = "Search",
                                 modifier = Modifier.padding(3.dp).clickable {
-                                    //navController.navigate(route = AppPantallas.PantallaGestionarCuenta.route + "/${usuario.id}")
+                                    navController.navigate(route = AppPantallas.PantallaVerNotas.route + "/${alumno.id}")
                                 })
                             Icon(imageVector = Icons.Default.Delete,
                                 contentDescription = "Delete",

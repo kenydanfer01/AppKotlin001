@@ -75,7 +75,7 @@ fun BodyPantallaAlumno(id_usuario: String?, navController: NavController) {
                         .padding(10.dp)
                         .fillMaxWidth()
                         .clickable{
-                            //
+                            navController.navigate(route = AppPantallas.PantallaVerNotas.route + "/${cursoA.id}")
                         }
                 ) {
                     Column() {

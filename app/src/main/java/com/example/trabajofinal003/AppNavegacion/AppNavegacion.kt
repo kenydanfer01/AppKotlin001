@@ -30,6 +30,12 @@ fun AppNavegacion() {
             })){
             PantallaGestionarCuenta(navController, it.arguments?.getString("id_usuario"))
         }
+        composable(route = AppPantallas.PantallaVerNotas.route + "/{id_registro}",
+            arguments = listOf(navArgument(name = "id_registro"){
+                type = NavType.StringType
+            })){
+            PantallaVerNotas(navController, it.arguments?.getString("id_registro"))
+        }
 
 /* PANTALLAS SEGÚN USUARIOS: Podemos ver que reciben parámetros */
         composable(route = AppPantallas.PantallaDocente.route + "/{id_usuario}",
@@ -57,6 +63,12 @@ fun AppNavegacion() {
                 type = NavType.StringType
             })){
             PantallaCursoInfo(navController, it.arguments?.getString("id_curso"))
+        }
+        composable(route = AppPantallas.PantallaActualizarNotas.route + "/{id_registro}",
+            arguments = listOf(navArgument(name = "id_registro"){
+                type = NavType.StringType
+            })){
+            PantallaActualizarNotas(navController, it.arguments?.getString("id_registro"))
         }
 
 
