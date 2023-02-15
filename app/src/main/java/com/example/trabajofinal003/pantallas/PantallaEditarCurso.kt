@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -50,6 +50,9 @@ fun BodyPantallaEditarCurso(navController: NavController, id_curso: String?) {
     var nombreDocente by remember { mutableStateOf("") }
     var apellidoDocente by remember { mutableStateOf("") }
     var cantidadAlumnos by remember { mutableStateOf("") }
+    var showPopup by remember { mutableStateOf(false) }
+    var id_aux_Alumno by remember { mutableStateOf("") }
+    var id_aux_datos_Alumno by remember { mutableStateOf("") }
 
     ObtenerInfoCurso(id_curso, respuesta = {
         if (it != null) {
@@ -86,14 +89,87 @@ fun BodyPantallaEditarCurso(navController: NavController, id_curso: String?) {
                         .padding(6.dp)
                         .fillMaxWidth()
                 ) {
-                    Column() {
+                    Row (horizontalArrangement = Arrangement.SpaceBetween){
                         Text(text = "$count) ${alumno.apellidos}, ${alumno.nombres}."  , fontSize = 20.sp)
+                        Row() {
+                            Icon(imageVector = Icons.Default.Search,
+                                contentDescription = "Search",
+                                modifier = Modifier.padding(3.dp).clickable {
+                                    //navController.navigate(route = AppPantallas.PantallaGestionarCuenta.route + "/${usuario.id}")
+                                })
+                            Icon(imageVector = Icons.Default.Delete,
+                                contentDescription = "Delete",
+                                modifier = Modifier.padding(3.dp).clickable {
+                                    id_aux_Alumno = alumno.id_alumno
+                                    id_aux_datos_Alumno = "${alumno.nombres} ${alumno.apellidos}"
+                                    showPopup = true
+                                })
+                        }
                     }
                 }
             }
         }
     }
+    val onPopupDismissed = { showPopup = false }
+    if (showPopup) {
+        AlertDialog(
+            onDismissRequest = onPopupDismissed,
+            text = {
+                Text("Seguro de Eliminar al Alumno ${id_aux_datos_Alumno}, del curso ${nombreCurso}", fontSize = 20.sp)
+            },
+            confirmButton = {
+                Button(onClick = {
+                    eliminarAlumnoCurso(id_curso, id_aux_Alumno, contexto, respuesta = {
+                        /*Para actualizar la pantalla */
+                        navController.navigate(AppPantallas.PantallaEditarCurso.route+ "/${id_curso}")
+                    })
+                    showPopup = false
+                }) {
+                    Text(text = "Aceptar")
+                }
+            },
+            dismissButton = {
+                Button(onClick = { showPopup = false }) {
+                    Text(text = "Cerrar")
+                }
+            }
+
+        )
+    }
 }
+
+@Composable
+fun ConfirmarEliminacion(onConfirm: () -> Unit) {
+    val showDialog = remember { mutableStateOf(false) }
+
+    if (showDialog.value) {
+        AlertDialog(
+            onDismissRequest = { showDialog.value = false },
+            title = { Text(text = "Título del cuadro de diálogo") },
+            text = { Text(text = "Mensaje de cuadro de diálogo") },
+            confirmButton = {
+                Button(onClick = {
+                    onConfirm()
+                    showDialog.value = false
+                }) {
+                    Text(text = "Aceptar")
+                }
+            },
+            dismissButton = {
+                Button(onClick = { showDialog.value = false }) {
+                    Text(text = "Cerrar")
+                }
+            }
+        )
+    }
+
+    // El siguiente botón puede activar el cuadro de diálogo
+    Button(onClick = { showDialog.value = true }) {
+        Text(text = "Mostrar cuadro de diálogo")
+    }
+}
+
+
 
 
 
