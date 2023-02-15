@@ -134,6 +134,34 @@ fun ObtenerAlumnosCurso(id_curso: String?, contexto: Context) {
     requestQueue.add(jsonObjectRequest)
 }
 
+/* PARA OBTENER LA LISTA DE LOS ALUMNOS QUE NOOO PERTENECEN A UN CURSO */
+fun ObtenerAlumnosSinCurso(id_curso: String?, contexto: Context) {
+    val url = base_route + "getAlumnosSinCurso.php?id_curso='$id_curso'"
+    val requestQueue = Volley.newRequestQueue(contexto)
+    val jsonObjectRequest = JsonObjectRequest(
+        Request.Method.GET,
+        url,
+        null,
+        { response ->
+            val jsonArray = response.getJSONArray("lista")
+            listaUsuarios.clear()
+            for (i in 0 until jsonArray.length()) {
+                val registro = jsonArray.getJSONObject(i)
+                val id = registro.getString("id")
+                val dni =  registro.getString("dni")
+                val apellidos = registro.getString("apellidos")
+                val nombres = registro.getString("nombres")
+                listaUsuarios.add(UsuarioInfo(id, dni, apellidos, nombres))
+            }
+        },
+        { error ->
+        }
+    )
+    requestQueue.add(jsonObjectRequest)
+}
+
+
+
 /* ---------------------- FUNCIONES PARA OBTENER DATOS (SIN PARÁMETROS)--------------------------- */
 
 /* PARA OBTENER LA LISTA DE TODOS USUARIOS EN GENERAL (POR FILTRO SEGÚN SU ROL "id_rol" )
@@ -347,6 +375,30 @@ fun insertarCurso(nombreCurso: String, id_docente: String, contexto: Context, re
     requestQueue.add(requerimiento)
 }
 
+
+/* FUNCIÓN PARA INSERTAR UN ALUMNO EN UN CURSO */
+fun insertarAlumnoCurso(id_curso: String?, id_alumno: String, contexto: Context, respuesta: (Boolean) -> Unit) {
+    val requestQueue = Volley.newRequestQueue(contexto)
+    val url = base_route + "setAlumnoCurso.php"
+    val parametros= JSONObject()
+    parametros.put("id_curso", id_curso)
+    parametros.put("id_alumno", id_alumno)
+    val requerimiento = JsonObjectRequest(
+        Request.Method.POST,
+        url,
+        parametros,
+        { response ->
+            if (response.get("respuesta").toString() == "ok")
+                respuesta(true)
+            else
+                respuesta(false)
+        },
+        {
+            respuesta(false)
+        }
+    )
+    requestQueue.add(requerimiento)
+}
 
 
 

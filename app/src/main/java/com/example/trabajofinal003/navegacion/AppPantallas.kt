@@ -24,11 +24,13 @@ sealed class AppPantallas(val route: String){
     object PantallaGestionarAlumnos: AppPantallas("pantalla_gestionarAlumnos")
     object PantallaGestionarCursos: AppPantallas("pantalla_gestionarCursos")
     object PantallaGestionarDocentes: AppPantallas("pantalla_gestionarDocentes")
+    object PantallaEditarCurso: AppPantallas("pantalla_editarCurso")
 
     /* PANTALLAS PARA REGISTRAR O INSERTAR */
     object PantallaAgregarAlumno: AppPantallas("pantalla_agregarAlumno")
     object PantallaAgregarDocente: AppPantallas("pantalla_agregarDocente")
     object PantallaAgregarCurso: AppPantallas("pantalla_agregarCurso")
+    object PantallaAgregarAlumnoCurso: AppPantallas("pantalla_agregarAlumnoCurso")
 
     /* PANTALLAS AUXILIARES Y DE PRUEBAS: (Luego las borraré)*/
     object PrimeraPantalla: AppPantallas("primera_pantalla")

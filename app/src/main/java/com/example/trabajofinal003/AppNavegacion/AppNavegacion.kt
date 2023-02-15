@@ -67,6 +67,18 @@ fun AppNavegacion() {
         composable(route = AppPantallas.PantallaGestionarDocentes.route) {PantallaGestionarDocentes( navController)}
         composable(route = AppPantallas.PantallaAgregarDocente.route) { PantallaAgregarDocente(navController) }
         composable(route = AppPantallas.PantallaAgregarCurso.route) { PantallaAgregarCurso(navController) }
+        composable(route = AppPantallas.PantallaEditarCurso.route + "/{id_curso}",
+            arguments = listOf(navArgument(name = "id_curso"){
+                type = NavType.StringType
+            })){
+            PantallaEditarCurso(navController, it.arguments?.getString("id_curso"))
+        }
+        composable(route = AppPantallas.PantallaAgregarAlumnoCurso.route + "/{id_curso}",
+            arguments = listOf(navArgument(name = "id_curso"){
+                type = NavType.StringType
+            })){
+            PantallaAgregarAlumnoCurso(navController, it.arguments?.getString("id_curso"))
+        }
 
 /* PANTALLAS AUXILIARES Y DE PRUEBAS: (Luego las borraré)*/
         composable(route = AppPantallas.PrimeraPantalla.route){ PrimeraPantalla(navController) }
