@@ -54,7 +54,7 @@ fun BodyPantallaGestionarCursos(navController: NavController) {
         Button(modifier = Modifier.padding(start = 250.dp),
             onClick = {
                 /* Al dar click vamos a la Pantalla de Agregar Curso */
-                /* Aún no existe esa pantalla */
+                navController.navigate(AppPantallas.PantallaAgregarCurso.route)
             }) {
             Text(text = "Agregar Curso")
         }

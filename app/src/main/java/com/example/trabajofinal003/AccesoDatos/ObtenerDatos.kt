@@ -323,7 +323,29 @@ fun actualizarUsuario(usuario: Usuario, contexto: Context, respuesta: (Boolean) 
     requestQueue.add(requerimiento)
 }
 
-
+/* FUNCIÓN PARA INSERTAR UN NUEVO CURSO (nombreCurso, id_docente) */
+fun insertarCurso(nombreCurso: String, id_docente: String, contexto: Context, respuesta: (Boolean) -> Unit) {
+    val requestQueue = Volley.newRequestQueue(contexto)
+    val url = base_route + "setCurso.php"
+    val parametros= JSONObject()
+    parametros.put("nombreCurso", nombreCurso)
+    parametros.put("id_docente", id_docente)
+    val requerimiento = JsonObjectRequest(
+        Request.Method.POST,
+        url,
+        parametros,
+        { response ->
+            if (response.get("respuesta").toString() == "ok")
+                respuesta(true)
+            else
+                respuesta(false)
+        },
+        {
+            respuesta(false)
+        }
+    )
+    requestQueue.add(requerimiento)
+}
 
 
 
