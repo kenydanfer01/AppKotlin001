@@ -137,8 +137,8 @@ fun BodyPantallaActualizarNotas(navController: NavController, id_registro: Strin
             )
             Button(
                 onClick = {
-                    x = ((n1.toInt() + n2.toInt() + n3.toInt() + n4.toInt()) / 4).toDouble()
-                    prom = x.toString()
+                    val listNotas = listOf(n1.toInt() , n2.toInt() , n3.toInt() , n4.toInt())
+                    prom = listNotas.average().toString()
                 },
                 modifier = Modifier.padding(10.dp)
             ) { Text(text = "OBTENER PROMEDIO")}
